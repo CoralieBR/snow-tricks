@@ -23,7 +23,7 @@ class Trick
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $cresatedAt = null;
+    private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
@@ -73,14 +73,14 @@ class Trick
         return $this;
     }
 
-    public function getCresatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->cresatedAt;
+        return $this->createdAt;
     }
 
-    public function setCresatedAt(\DateTimeImmutable $cresatedAt): static
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
-        $this->cresatedAt = $cresatedAt;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
