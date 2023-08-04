@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="homepage-picture-container" >
+        <img src="pictures/snow.jpg" alt="photo de montagne enneigée">
+        <h1>Je me souviens, la neige c'est... chouette</h1>
+    </div>
+    <div class="cards-container">
+        {% for trick in tricks %}
+            <div class="trick-card">
+                <img src="pictures/snow.jpg" alt="photo de montagne enneigée">
+                <div>
+                    <a href="">{{ trick.name|capitalize }}</a>
+                    <div>
+                        <button>✏️</button>
+                        <button>🗑️</button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

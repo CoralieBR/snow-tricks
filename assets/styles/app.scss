@@ -1,3 +1,128 @@
+$light-color: snow;
+$dark-color: rgb(11, 84, 94);
+$colored-color: rgb(0, 255, 242);
+
+// FONTS
+@font-face {
+    font-family: chocolate-font;
+    src: url('/public/fonts/chocolate/regular.otf');
+}
+@font-face {
+    font-family: chocolate-font;
+    src: url('/public/fonts/chocolate/italic.otf');
+    font-style: italic;
+}
+@font-face {
+    font-family: chocolate-font;
+    src: url('/public/fonts/chocolate/bold.otf');
+    font-weight: bold;
+}
+@font-face {
+    font-family: chocolate-font;
+    src: url('/public/fonts/chocolate/bold--italic.otf');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: shoked-up-font;
+    src: url('/public/fonts/shoked_up/font.otf');
+}
+
+@font-face {
+    font-family: levitation;
+    src: url('/public/fonts/levitation/levitation.otf');
+}
+
+
 * {
     box-sizing: border-box;
+    font-family: chocolate-font;
+    h1, h2, h3, h4, h5, h6 {
+        font-family: levitation;
+    }
+}
+body {
+    margin: 0;
+    background-color: $dark-color;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $light-color;
+    border: $colored-color solid 3px;
+    div {
+        margin: 1rem;
+        p {
+            font-size: 2rem;
+            padding: 0;
+            margin: 0;
+        }
+        &:last-child {
+            align-items: end;
+            display: flex;
+        }
+    }
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    background-color: $light-color;
+}
+
+img {
+    width: 100%;
+}
+button {
+    margin: 6px;
+    padding: 6px;
+    border-color: $dark-color;
+    background-color: transparent;
+    box-shadow: $dark-color 1px 1px 2px;
+    &:hover {
+        box-shadow: $dark-color 2px 2px 2px;
+    }
+}
+
+#homepage-picture-container {
+    position: relative;
+    text-align: center;
+    color: $light-color;
+    img {
+        max-height: 100vh;
+        object-fit: cover;
+    }
+    h1 {
+        position: absolute;
+        top: 33%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-shadow: $dark-color 0px 0px 5px;
+    }
+}
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 1rem;
+    .trick-card {
+        display: flex;
+        flex-direction: column;
+        background-color: $light-color;
+        margin: 1rem;
+        flex: 1 0 250px;
+        max-width: 500px;
+        box-shadow: $light-color 0px 0px 16px;
+        &>div {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            align-items: center;
+        }
+    }
 }
