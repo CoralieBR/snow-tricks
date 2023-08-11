@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Trick: {{ trick.name }}{% endblock %}
+
+{% block body %}
+<main class="trick-page">
+    <div id="trickpage-picture-container" >
+        <img src="{{ placeholderPicture }}" alt="photo de montagne enneigée">
+    </div>
+
+    <div id="trick-container">
+        <div>
+            <img src="{{ placeholderPicture }}" alt="photo de montagne enneigée">
+        </div>
+        <div class="other-trick-pictures">
+            {% for  i in 0..6 %}
+                <div>
+                    <img src="{{ placeholderPicture }}" alt="photo de montagne enneigée">
+                    <div>
+                        <button>✏️</button>
+                        <button>🗑️</button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div id="trick-infos">
+            <h1>{{ trick.name }}</h1>
+            {% for group in trick.groups %}
+            <p><i>{{ group.name }}</i></p>
+            {% endfor %}
+            <p>{{ trick.description }}</p>
+            
+        </div>
+    </div>
+</main>
+{% endblock %}

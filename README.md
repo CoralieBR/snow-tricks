@@ -5,3 +5,7 @@ composer install
 
 Modify .env database
 symfony console doctrine:database:create
+
+npm install
+
+npm run watch

@@ -25,15 +25,9 @@ $colored-color: rgb(0, 255, 242);
 }
 
 @font-face {
-    font-family: shoked-up-font;
-    src: url('/public/fonts/shoked_up/font.otf');
-}
-
-@font-face {
     font-family: levitation;
     src: url('/public/fonts/levitation/levitation.otf');
 }
-
 
 * {
     box-sizing: border-box;
@@ -45,6 +39,7 @@ $colored-color: rgb(0, 255, 242);
 body {
     margin: 0;
     background-color: $dark-color;
+    min-height: 100vh;
 }
 header {
     display: flex;
@@ -98,10 +93,57 @@ button {
     }
     h1 {
         position: absolute;
-        top: 33%;
+        top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         text-shadow: $dark-color 0px 0px 5px;
+    }
+}
+
+main.trick-page {
+    position: relative;
+    height: calc(100vh - (80px + 50px));
+    #trickpage-picture-container {
+        position: relative;
+        text-align: center;
+        color: $light-color;
+        img {
+            max-height: 100vh;
+            object-fit: cover;
+        }
+    }
+    #trick-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-height: 90vh;
+        overflow-y: auto;
+        border: $colored-color solid 3px;
+        background-color: $dark-color;
+        .other-trick-pictures {
+            display: flex;
+            overflow-x: auto;
+            &>div {
+                background-color: $light-color;
+                margin: 6px;
+                padding: 6px;
+                flex: 1 0 150px;
+                button {
+                    background-color: $dark-color;
+                }
+            }
+        }
+        #trick-infos {
+            display: flex;
+            flex-direction: column;
+            max-width: 250px;
+            margin: 16px auto;
+            color: $light-color;
+            h1, p {
+                margin-top: 0px;
+            }
+        }
     }
 }
 

@@ -2,15 +2,15 @@
 
 {% block body %}
     <div id="homepage-picture-container" >
-        <img src="pictures/snow.jpg" alt="photo de montagne enneigée">
-        <h1>Je me souviens, la neige c'est... chouette</h1>
+        <img src="{{ placeholderPicture }}" alt="photo de montagne enneigée">
+        <h1>Vive la neige!</h1>
     </div>
     <div class="cards-container">
         {% for trick in tricks %}
             <div class="trick-card">
-                <img src="pictures/snow.jpg" alt="photo de montagne enneigée">
+                <img src="{{ placeholderPicture }}" alt="photo de montagne enneigée">
                 <div>
-                    <a href="">{{ trick.name|capitalize }}</a>
+                    <a href="{{ path('app_trick', { slug: trick.slug }) }}">{{ trick.name|capitalize }}</a>
                     <div>
                         <button>✏️</button>
                         <button>🗑️</button>
