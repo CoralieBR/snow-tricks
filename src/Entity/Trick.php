@@ -164,14 +164,13 @@ class Trick
 
     public function hasGroup($groupId): bool
     {
-        $hasGroup = false;
         foreach ($this->groups as $group) {
             if ($group->getId() == $groupId) {
-                $hasGroup = true;
+                return true;
             }
         }
 
-        return $hasGroup;
+        return false;
     }
     public function addGroup(Group $group): static
     {
