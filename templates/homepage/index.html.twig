@@ -13,7 +13,6 @@
                     <turbo-frame id="triiick-{{ trick.id }}">
                         <a href="{{ path('app_trick', { slug: trick.slug }) }}">{{ trick.name|capitalize }}</a>
                         <div>
-                        <button>✏️</button>
                             <a href="{{ path('app_trick_edit', { slug: trick.slug }) }}">✏️</a>
                             <button>🗑️</button>
                         </div>
