@@ -76,8 +76,7 @@ class Group
     public function addTrick(Trick $trick): static
     {
         if (!$this->tricks->contains($trick)) {
-            $this->tricks[] = $trick;
-            $trick->addGroup($this);
+            $this->tricks->add($trick);
         }
 
         return $this;

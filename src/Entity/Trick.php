@@ -40,13 +40,14 @@ class Trick
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comments;
 
-    #[ORM\ManyToMany(targetEntity: Group::class, mappedBy: 'tricks')]
+    #[ORM\ManyToMany(targetEntity: Group::class, mappedBy: 'tricks', cascade: ['persist', 'remove'])]
     private Collection $groups;
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->groups = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function __toString()
@@ -182,7 +183,7 @@ class Trick
     public function addGroup(Group $group): static
     {
         if (!$this->groups->contains($group)) {
-            $this->groups[] = $group;
+            $this->groups->add($group);
             $group->addTrick($this);
         }
 
