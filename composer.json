@@ -21,6 +21,7 @@
         "symfony/stimulus-bundle": "^2.10",
         "symfony/twig-bundle": "6.3.*",
         "symfony/ux-turbo": "^2.11",
+        "symfony/validator": "6.3.*",
         "symfony/webpack-encore-bundle": "^2.0",
         "symfony/yaml": "6.3.*",
         "twig/extra-bundle": "^2.12|^3.0",
@@ -76,8 +77,10 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "symfony/debug-bundle": "6.3.*",
         "symfony/maker-bundle": "^1.50",
         "symfony/stopwatch": "6.3.*",
+        "symfony/var-dumper": "6.3.*",
         "symfony/web-profiler-bundle": "6.3.*"
     }
 }
