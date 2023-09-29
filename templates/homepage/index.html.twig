@@ -7,14 +7,16 @@
     </div>
     <div class="cards-container">
         {% for trick in tricks %}
-            <div class="trick-card">
+            <div id="trick-{{ trick.id }}" class="trick-card" data-controller="hello">
                 <img src="{{ placeholderPicture }}" alt="photo de montagne enneigée">
                 <div>
-                    <a href="{{ path('app_trick', { slug: trick.slug }) }}">{{ trick.name|capitalize }}</a>
-                    <div>
-                        <button>✏️</button>
-                        <button>🗑️</button>
-                    </div>
+                    <turbo-frame id="trick-{{ trick.id }}">
+                        <a href="{{ path('app_trick', { slug: trick.slug }) }}">{{ trick.name|capitalize }}</a>
+                        <div>
+                            <a href="{{ path('app_trick_edit', { slug: trick.slug }) }}">✏️</a>
+                            <button>🗑️</button>
+                        </div>
+                    </turbo-frame>
                 </div>
             </div>
         {% endfor %}
