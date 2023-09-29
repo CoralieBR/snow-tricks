@@ -32,7 +32,7 @@ $colored-color: rgb(0, 255, 242);
 * {
     box-sizing: border-box;
     font-family: chocolate-font;
-    h1, h2, h3, h4, h5, h6 {
+    h1, h2, h2 > a, h3, h4, h5, h6 {
         font-family: levitation;
     }
 }
@@ -72,14 +72,18 @@ footer {
 img {
     width: 100%;
 }
-button {
+button, .button {
     margin: 6px;
     padding: 6px;
-    border-color: $dark-color;
+    border: $dark-color solid;
     background-color: transparent;
     box-shadow: $dark-color 1px 1px 2px;
+    display: inline;
     &:hover {
         box-shadow: $dark-color 2px 2px 2px;
+    }
+    a {
+        text-decoration: none;
     }
 }
 
@@ -147,6 +151,17 @@ main.trick-page {
     }
 }
 
+#add-trick-button {
+    background-color: $light-color;
+    padding: 1rem 3rem;
+    margin: 1rem 3rem;
+    text-align: center;
+    box-shadow: $light-color 0px 0px 16px;
+    &:hover {
+        box-shadow: $light-color 0px 0px 18px;
+    }
+}
+
 .cards-container {
     display: flex;
     flex-wrap: wrap;
@@ -177,5 +192,34 @@ main.trick-page {
         z-index: 1000;
         background-color: #00000080;
         
+    }
+}
+
+form {
+    margin: 1rem;
+    color: $light-color;
+    > div > div {
+        margin-bottom: 1rem;
+        display: flex;
+        > label {
+            width: 20%;
+            display: block;
+        }
+        > input, textarea {
+            width: 80%;
+        }
+        #trick_groups {
+            label {
+                width: 20%;
+            }
+        }
+    }
+    button {
+        color: $light-color;
+        border-color: $light-color;
+        box-shadow: $light-color 1px 1px 2px;
+        &:hover {
+            box-shadow: $light-color 2px 2px 2px;
+        }
     }
 }

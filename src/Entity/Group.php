@@ -31,6 +31,11 @@ class Group
         $this->tricks = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,7 +76,8 @@ class Group
     public function addTrick(Trick $trick): static
     {
         if (!$this->tricks->contains($trick)) {
-            $this->tricks->add($trick);
+            $this->tricks[] = $trick;
+            $trick->addGroup($this);
         }
 
         return $this;

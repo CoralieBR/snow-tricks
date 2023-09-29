@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TrickRepository::class)]
 class Trick
@@ -17,6 +18,7 @@ class Trick
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
@@ -45,6 +47,11 @@ class Trick
     {
         $this->comments = new ArrayCollection();
         $this->groups = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -175,7 +182,7 @@ class Trick
     public function addGroup(Group $group): static
     {
         if (!$this->groups->contains($group)) {
-            $this->groups->add($group);
+            $this->groups[] = $group;
             $group->addTrick($this);
         }
 
