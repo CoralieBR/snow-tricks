@@ -10,7 +10,7 @@
             <div id="trick-{{ trick.id }}" class="trick-card" data-controller="hello">
                 <img src="{{ placeholderPicture }}" alt="photo de montagne enneigée">
                 <div>
-                    <turbo-frame id="triiick-{{ trick.id }}">
+                    <turbo-frame id="trick-{{ trick.id }}">
                         <a href="{{ path('app_trick', { slug: trick.slug }) }}">{{ trick.name|capitalize }}</a>
                         <div>
                             <a href="{{ path('app_trick_edit', { slug: trick.slug }) }}">✏️</a>
