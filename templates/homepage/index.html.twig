@@ -5,27 +5,25 @@
         <img src="{{ placeholderPicture }}" alt="photo de montagne enneigée">
         <h1>Vive la neige!</h1>
     </div>
-    <turbo-frame id="trick-new">
-        <div id="add-trick-button">
-            <a href="{{ path('app_trick_new')}}">Ajouter une figure</a>
-        </div>
-    </turbo-frame>
-    <div class="cards-container">
+    <div id="add-trick-button">
+        <a href="{{ path('app_trick_new')}}">Ajouter une figure</a>
+    </div>
+    <div class="cards-container" id="cards-container">
         {% for trick in tricks %}
-            <div id="trick-{{ trick.id }}" class="trick-card" data-controller="hello">
-                <img src="{{ placeholderPicture }}" alt="photo de montagne enneigée">
+            <div id="trick-{{ trick.id }}" class="trick-card">
+                <img src="{{ trick.media|length ? trick.media[0].path : placeholderPicture }}" alt="photo de montagne enneigée">
                 <div>
-                    <turbo-frame id="trick-{{ trick.id }}">
-                        <h2>
-                            <a href="{{ path('app_trick', { slug: trick.slug }) }}">{{ trick.name|capitalize }}</a>
-                        </h2>
-                        <div>
-                            <div class="button">
-                                <a href="{{ path('app_trick_edit', { slug: trick.slug }) }}">✏️</a>
-                            </div>
-                            <button>🗑️</button>
+                    <h2>
+                        <a href="{{ path('app_trick', { slug: trick.slug }) }}">{{ trick.name|capitalize }}</a>
+                    </h2>
+                    <div>
+                        <div class="button">
+                            <a href="{{ path('app_trick_edit', { slug: trick.slug }) }}">✏️</a>
                         </div>
-                    </turbo-frame>
+                        <div class="button">
+                            <a href="{{ path('app_trick_delete', { slug: trick.slug }) }}">🗑️</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         {% endfor %}

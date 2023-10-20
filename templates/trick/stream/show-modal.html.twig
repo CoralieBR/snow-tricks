@@ -1,0 +1,17 @@
+<div>
+    <img src="{{ trick.media|length ? trick.media[0].path : placeholderPicture }}" alt="photo de montagne enneigée">
+</div>
+<div class="other-trick-pictures">
+    {% for medium in trick.media %}
+        <div>
+            <img src="{{ medium.path }}" alt="photo de montagne enneigée">
+        </div>
+    {% endfor %}
+</div>
+<div id="trick-infos">
+    <h1>{{ trick.name }}</h1>
+    {% for group in trick.groups %}
+    <p><i>{{ group.name }}</i></p>
+    {% endfor %}
+    <p>{{ trick.description }}</p>
+</div>

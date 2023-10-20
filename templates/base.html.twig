@@ -20,10 +20,10 @@
                 <a href="{{ path('app_homepage') }}">🏂</a>
             </div>
             <div>
-                <button>Home</button>
-                <button>Tricks</button>
-                <button>Sign in</button>
-                <button>Sign up</button>
+                <a href="{{ path('app_homepage') }}" class="button">Home</a>
+                <a href="{{ path('app_homepage') }}" class="button">Tricks</a>
+                <a href="{{ path('other_page') }}" class="button">Sign in</a>
+                <a href="{{ path('other_page') }}" class="button">Sign up</a>
             </div>
         </header>
         {% block body %}{% endblock %}

@@ -1,0 +1,14 @@
+{% set placeholderPicture = asset('pictures/snow.jpg') %}
+
+<turbo-stream action="{{ turboAction|default('append') }}" target="{{ turboTarget|default('cards-container') }}">
+    <template>
+        <div id="trick-modal">
+            <a style="color: white"href="{{ path('app_trick_modal_close') }}">FERMER ⊗</a>
+            <div id="trick-container">
+
+                {% include "trick/stream/" ~ action ~ "-modal.html.twig" %}
+            
+            </div>
+        </div>
+    </template>
+</turbo-stream>
