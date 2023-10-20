@@ -1,3 +1,31 @@
 <div id="trick-form">
-    {{ form(form) }}
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.groups) }}
+
+    <div {{ stimulus_controller('form-collection') }}
+        data-form-collection-index-value="{{ form.media|length > 0 ? form.media|last.vars.name + 1 : 0 }}"
+        data-form-collection-prototype-value="{{ form_widget(form.media.vars.prototype)|e('html_attr') }}"
+        class="container-form-trick-pictures"
+    >
+        <div class="form-trick-pictures" {{ stimulus_target('form-collection', 'collectionContainer') }}>
+            {% for medium in form.media %}
+                <div class="form-trick-picture" {{ stimulus_controller('picture')|stimulus_target('picture', 'picture')|stimulus_target('form-collection', 'picture') }}>
+                    <img {{ stimulus_target('picture', 'currentPicture') }} src="" alt="">
+                    <div>
+                        {{ form_row(medium.path, { attr: {
+                            'data-picture-target': 'pathInput',
+                            'data-action': 'picture#showCurrentPicture'
+                        } }) }}
+                        
+                        {{ form_row(medium.type) }}
+                        <div class="button" {{ stimulus_action('picture', 'deletePicture', 'click') }}>Supprimer l'image</div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <button type="button" {{ stimulus_action('form-collection', 'addCollectionElement') }}>Ajouter un media</button>
+    </div>
+    {{ form_end(form) }}
 </div>

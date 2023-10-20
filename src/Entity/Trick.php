@@ -43,10 +43,14 @@ class Trick
     #[ORM\ManyToMany(targetEntity: Group::class, mappedBy: 'tricks', cascade: ['persist', 'remove'])]
     private Collection $groups;
 
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Medium::class, cascade: ['persist', 'remove'])]
+    private Collection $media;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->groups = new ArrayCollection();
+        $this->media = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
     }
 
@@ -194,6 +198,36 @@ class Trick
     {
         if ($this->groups->removeElement($group)) {
             $group->removeTrick($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Medium>
+     */
+    public function getMedia(): Collection
+    {
+        return $this->media;
+    }
+
+    public function addMedium(Medium $medium): static
+    {
+        if (!$this->media->contains($medium)) {
+            $this->media->add($medium);
+            $medium->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMedium(Medium $medium): static
+    {
+        if ($this->media->removeElement($medium)) {
+            // set the owning side to null (unless already changed)
+            if ($medium->getTrick() === $this) {
+                $medium->setTrick(null);
+            }
         }
 
         return $this;

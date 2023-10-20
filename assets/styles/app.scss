@@ -123,6 +123,7 @@ main.trick-page {
     left: 50%;
     transform: translate(-50%, -50%);
     max-height: 90vh;
+    min-width: 80vw;
     overflow-y: auto;
     border: $colored-color solid 3px;
     background-color: $dark-color;
@@ -181,8 +182,12 @@ main.trick-page {
             padding: 1rem;
             align-items: center;
         }
+        img {
+            height: 150px;
+            object-fit: cover;
+        }
     }
-    .trick-modal {
+    #trick-modal {
         position: fixed;
         left: 0;
         top: 0;
@@ -198,7 +203,7 @@ main.trick-page {
 form {
     margin: 1rem;
     color: $light-color;
-    > div > div {
+    > div:not(.container-form-trick-pictures) {
         margin-bottom: 1rem;
         display: flex;
         > label {
@@ -211,6 +216,36 @@ form {
         #trick_groups {
             label {
                 width: 20%;
+            }
+        }
+    }
+    .form-trick-pictures {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        .form-trick-picture {
+            flex: 0 1 250px;
+            margin: 1rem;
+            padding: 1rem;
+            background-color: white;
+            color: black;
+            button {
+                color: black;
+            }
+            > div > div {
+                display: flex;
+                margin: 1rem;
+                label {
+                    padding: 8px;
+                    flex: 1 0 20%;
+                }
+                select, input {
+                    flex: 1 0 80%;
+                }
+                
+            }
+            img {
+                height: auto;
             }
         }
     }

@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\MediaRepository;
+use App\Repository\MediumRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: MediaRepository::class)]
-class Media
+#[ORM\Entity(repositoryClass: MediumRepository::class)]
+class Medium
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,6 +18,9 @@ class Media
 
     #[ORM\Column(length: 255)]
     private ?string $type = null;
+
+    #[ORM\ManyToOne(inversedBy: 'media')]
+    private ?Trick $trick = null;
 
     public function getId(): ?int
     {
@@ -44,6 +47,18 @@ class Media
     public function setType(string $type): static
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getTrick(): ?Trick
+    {
+        return $this->trick;
+    }
+
+    public function setTrick(?Trick $trick): static
+    {
+        $this->trick = $trick;
 
         return $this;
     }

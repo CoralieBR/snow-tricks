@@ -8,18 +8,20 @@
         <img src="{{ placeholderPicture }}" alt="photo de montagne enneigée">
     </div>
 
-    <turbo-frame id="trick-new" class="current-frame">
-        <div id="modal-new" class="trick-modal">
-            <div id="trick-container">
-                {% if isModal %}
-                    <a style="color: white"href="{{ path('app_homepage') }}">FERMER ⊗</a>
-                {% endif %}
-                <div>
-                    <img src="{{ placeholderPicture }}" alt="photo de montagne enneigée">
+    <turbo-stream action="append" target="cards-container">
+        <template>
+            <div id="modal-new" class="trick-modal">
+                <div id="trick-container">
+                    {% if isModal %}
+                        <a style="color: white"href="{{ path('app_trick_modal_close') }}">FERMER ⊗</a>
+                    {% endif %}
+                    <div>
+                        <img src="{{ placeholderPicture }}" alt="photo de montagne enneigée">
+                    </div>
+                    {% include "trick/_form.html.twig" %}
                 </div>
-                {% include "trick/_form.html.twig" %}
             </div>
-        </div>
-    </turbo-frame>
+        </template>
+    </turbo-stream>
 </main>
 {% endblock %}
