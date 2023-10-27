@@ -18,7 +18,7 @@
                             'data-picture-target': 'pathInput',
                             'data-action': 'picture#showCurrentPicture'
                         } }) }}
-                        
+                        {{ form_row(medium.file) }}
                         {{ form_row(medium.type) }}
                         <div class="button" {{ stimulus_action('picture', 'deletePicture', 'click') }}>Supprimer l'image</div>
                     </div>

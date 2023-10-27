@@ -1,10 +1,10 @@
 <div>
-    <img src="{{ trick.media|length ? trick.media[0].path : placeholderPicture }}" alt="photo de montagne enneigée">
+    <img src="{{ trick.media|length ? asset('uploads/media/' ~ trick.media[0].path) : placeholderPicture }}" alt="photo de montagne enneigée">
 </div>
 <div class="other-trick-pictures">
     {% for medium in trick.media %}
         <div>
-            <img src="{{ medium.path }}" alt="photo de montagne enneigée">
+            <img src="{{ asset('uploads/media/' ~ medium.path) }}" alt="photo de montagne enneigée">
         </div>
     {% endfor %}
 </div>

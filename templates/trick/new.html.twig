@@ -12,12 +12,6 @@
         <template>
             <div id="modal-new" class="trick-modal">
                 <div id="trick-container">
-                    {% if isModal %}
-                        <a style="color: white"href="{{ path('app_trick_modal_close') }}">FERMER ⊗</a>
-                    {% endif %}
-                    <div>
-                        <img src="{{ placeholderPicture }}" alt="photo de montagne enneigée">
-                    </div>
                     {% include "trick/_form.html.twig" %}
                 </div>
             </div>

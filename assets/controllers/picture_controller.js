@@ -14,11 +14,7 @@ export default class extends Controller {
 
     showCurrentPicture()
     {
-        if (this.hasPathInputTarget) {
-            this.currentPictureTarget.setAttribute('src', this.pathInputTarget.value);
-        } else {
-            this.currentPictureTarget.setAttribute('src', this.pictureTarget.querySelector('input').value);
-        }
+        this.currentPictureTarget.setAttribute('src', 'uploads/media/' + this.pictureTarget.querySelector('input').value);
     }
 
     listenNewPicture() {

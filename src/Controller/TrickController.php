@@ -15,8 +15,13 @@ use Symfony\UX\Turbo\TurboBundle;
 
 class TrickController extends AbstractController
 {
+    public function __construct(private SluggerInterface $slugger)
+    {
+        
+    }
+
     #[Route('/trick/ajouter', name: 'app_trick_new')]
-    public function new(Request $request, SluggerInterface $slugger, EntityManagerInterface $em)
+    public function new(Request $request, EntityManagerInterface $em)
     {
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick, [
@@ -25,8 +30,15 @@ class TrickController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $trick->setSlug($slugger->slug($trick->getName()));
+            $trick->setSlug($this->slugger->slug($trick->getName()));
             $trick->setUser($em->getRepository(User::class)->findOneBy(['name' => 'Deux']));
+
+            foreach ($trick->getMedia() as $key => $medium) {
+                $file = $form['media'][$key]['file']->getData();
+                if ($file) {
+                    $this->saveFile($file, $medium);
+                }
+            }
 
             $em->persist($trick);
             $em->flush();
@@ -110,6 +122,13 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $trick->setUpdatedAt(new \DateTimeImmutable());
 
+            foreach ($trick->getMedia() as $key => $medium) {
+                $file = $form['media'][$key]['file']->getData();
+                if ($file) {
+                    $this->saveFile($file, $medium);
+                }
+            }
+
             $em->flush();
 
             return $this->redirectToRoute('app_trick', [
@@ -132,5 +151,13 @@ class TrickController extends AbstractController
                 'form' => $form
             ]);
         }
+    }
+
+    private function saveFile($file, $medium)
+    {
+        $safeFileName = $this->slugger->slug($file->getClientOriginalName());
+        $newFileName = $safeFileName . '-' . uniqid() . '.' . $file->guessExtension();
+        $file->move($this->getParameter('media_directory'), $newFileName);
+        $medium->setPath($newFileName);
     }
 }

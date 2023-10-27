@@ -11,7 +11,7 @@
     <div class="cards-container" id="cards-container">
         {% for trick in tricks %}
             <div id="trick-{{ trick.id }}" class="trick-card">
-                <img src="{{ trick.media|length ? trick.media[0].path : placeholderPicture }}" alt="photo de montagne enneigée">
+                <img src="{{ trick.media|length ? asset('uploads/media/' ~ trick.media[0].path) : placeholderPicture }}" alt="photo de montagne enneigée">
                 <div>
                     <h2>
                         <a href="{{ path('app_trick', { slug: trick.slug }) }}">{{ trick.name|capitalize }}</a>
