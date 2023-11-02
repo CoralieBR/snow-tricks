@@ -73,6 +73,7 @@ img {
     width: 100%;
 }
 button, .button {
+    cursor: pointer;
     margin: 6px;
     padding: 6px;
     border: $dark-color solid;

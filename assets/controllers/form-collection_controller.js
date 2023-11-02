@@ -14,10 +14,9 @@ export default class extends Controller {
         const newFormPicture = this.prototypeValue.replace(/__name__/g, this.indexValue);
         item.innerHTML = `
             <div class="form-trick-picture" data-controller="picture" data-picture-target="picture" data-form-collection-target="picture">
-                <img data-picture-target="currentPicture" src="" alt="">
                 <div>
                     ${ newFormPicture }
-                    <div class="button" data-action="form-collection#deletePicture">
+                    <div class="button" data-action="click->picture#deletePicture">
                         Supprimer l'image
                     </div>
                 </div>

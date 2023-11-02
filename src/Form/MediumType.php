@@ -17,15 +17,26 @@ class MediumType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('path', HiddenType::class)
             ->add('type', ChoiceType::class, [
                 'choices' => [
+                    '...' => null,
                     'image' => 'picture',
                     'vidéo' => 'video',
+                ],
+                'attr' => [
+                    'data-action' => 'change->picture#displayFormNextStep'
                 ]
+            ])
+            ->add('path', null, [
+                'row_attr' => [
+                    'data-picture-target' => 'secondInput path',
+                ],
             ])
             ->add('file', FileType::class, [
                 'label' => 'Fichier',
+                'row_attr' => [
+                    'data-picture-target' => 'secondInput file',
+                ],
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [

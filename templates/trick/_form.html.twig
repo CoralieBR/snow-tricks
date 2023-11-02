@@ -12,14 +12,17 @@
         <div class="form-trick-pictures" {{ stimulus_target('form-collection', 'collectionContainer') }}>
             {% for medium in form.media %}
                 <div class="form-trick-picture" {{ stimulus_controller('picture')|stimulus_target('picture', 'picture')|stimulus_target('form-collection', 'picture') }}>
-                    <img {{ stimulus_target('picture', 'currentPicture') }} src="" alt="">
+                    {% if trick.media[loop.index0].type == 'picture' %}
+                        <img src="{{ asset('uploads/media/' ~ medium.path) }}" alt="photo de montagne enneigée">
+                    {% elseif trick.media[loop.index0].type == 'video' %}
+                        <iframe width="560" height="315" src="{{ trick.media[loop.index0].path }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    {% endif %}
                     <div>
-                        {{ form_row(medium.path, { attr: {
-                            'data-picture-target': 'pathInput',
-                            'data-action': 'picture#showCurrentPicture'
-                        } }) }}
-                        {{ form_row(medium.file) }}
-                        {{ form_row(medium.type) }}
+                        <div style="display: none">
+                            {{ form_row(medium.type) }}
+                            {{ form_row(medium.path) }}
+                            {{ form_row(medium.file) }}
+                        </div>
                         <div class="button" {{ stimulus_action('picture', 'deletePicture', 'click') }}>Supprimer l'image</div>
                     </div>
                 </div>
