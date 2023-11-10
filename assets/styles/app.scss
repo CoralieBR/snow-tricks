@@ -233,7 +233,7 @@ form {
             button {
                 color: black;
             }
-            > div > div {
+            > div > div:not([hidden=""]) {
                 display: flex;
                 margin: 1rem;
                 label {

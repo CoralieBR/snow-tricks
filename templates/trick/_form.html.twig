@@ -11,7 +11,7 @@
     >
         <div class="form-trick-pictures" {{ stimulus_target('form-collection', 'collectionContainer') }}>
             {% for medium in form.media %}
-                <div class="form-trick-picture" {{ stimulus_controller('picture')|stimulus_target('picture', 'picture')|stimulus_target('form-collection', 'picture') }}>
+                <div class="form-trick-picture" {{ stimulus_controller('picture')|stimulus_target('picture', 'picture') }}>
                     {% if trick.media[loop.index0].type == 'picture' %}
                         <img src="{{ asset('uploads/media/' ~ medium.path) }}" alt="photo de montagne enneigée">
                     {% elseif trick.media[loop.index0].type == 'video' %}

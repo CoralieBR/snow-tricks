@@ -31,6 +31,7 @@ class MediumType extends AbstractType
                 'row_attr' => [
                     'data-picture-target' => 'secondInput path',
                 ],
+                'required' => false,
             ])
             ->add('file', FileType::class, [
                 'label' => 'Fichier',
@@ -41,12 +42,7 @@ class MediumType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new File([
-                        // 'maxSize' => '1024k',
-                        // 'mimeTypes' => [
-                        //     'application/pdf',
-                        //     'application/x-pdf',
-                        // ],
-                        // 'mimeTypesMessage' => 'Please upload a valid PDF document',
+                        'maxSize' => '1024k',
                     ])
                 ]
             ])

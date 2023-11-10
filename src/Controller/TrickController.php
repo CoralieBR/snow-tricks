@@ -46,28 +46,18 @@ class TrickController extends AbstractController
             return $this->redirectToRoute('app_trick', ['slug' => $trick->getSlug()]);
         }
 
-        try {
-            $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
-            return $this->render('trick/stream/_modal.stream.html.twig', [
-                'action' => 'new',
-                'form' => $form,
-            ]);
-        } catch (\Throwable $th) {
-            return $this->render('trick/new.html.twig', [
-                'form' => $form,
-            ]);
-        }
+        $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+        return $this->render('trick/stream/_modal.stream.html.twig', [
+            'action' => 'new',
+            'form' => $form,
+        ]);
     }
 
     #[Route('/trick/fermer', name:'app_trick_modal_close')]
     public function close(Request $request)
     {
-        try {
-            $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
-            return $this->render('trick/stream/close-modal.stream.html.twig');
-        } catch (\Throwable $th) {
-            return $this->redirectToRoute('app_homepage');
-        }
+        $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+        return $this->render('trick/stream/close-modal.stream.html.twig');
     }
 
     #[Route('/trick/supprimer/{slug}', name: 'app_trick_delete')]
@@ -78,15 +68,11 @@ class TrickController extends AbstractController
         $em->remove($trick);
         $em->flush();
 
-        try {
-            $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
-            return $this->render('trick/stream/deleted.stream.html.twig', [
-                'id' => $id,
-                'name' => $name,
-            ]);
-        } catch (\Throwable $th) {
-            throw $th;
-        }
+        $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+        return $this->render('trick/stream/deleted.stream.html.twig', [
+            'id' => $id,
+            'name' => $name,
+        ]);
     }
 
     #[Route('/trick/{slug}', name: 'app_trick')]
@@ -100,15 +86,8 @@ class TrickController extends AbstractController
             $params['turbo-action'] = 'update';
             $params['turbo-target'] = 'trick-modal';
         }
-        try {
-            $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
-            return $this->render('trick/stream/_modal.stream.html.twig', $params);
-        } catch (\Throwable $th) {
-            return $this->render('trick/show.html.twig', [
-                'trick' => $trick,
-                'isModal' => false,
-            ]);
-        }
+        $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+        return $this->render('trick/stream/_modal.stream.html.twig', $params);
     }
 
     #[Route('/trick/{slug}/edit', name: 'app_trick_edit')]
@@ -137,20 +116,12 @@ class TrickController extends AbstractController
             ], 303);
         }
 
-        try {
-            $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
-            return $this->render('trick/stream/_modal.stream.html.twig', [
-                'trick' => $trick,
-                'form' => $form,
-                'action' => 'edit',
-            ]);
-        } catch (\Throwable $th) {
-            return $this->render('trick/edit.html.twig', [
-                'trick' => $trick,
-                'isModal' => false,
-                'form' => $form
-            ]);
-        }
+        $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+        return $this->render('trick/stream/_modal.stream.html.twig', [
+            'trick' => $trick,
+            'form' => $form,
+            'action' => 'edit',
+        ]);
     }
 
     private function saveFile($file, $medium)
