@@ -87,7 +87,6 @@ class TrickController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setCreatedAt(new \DateTimeImmutable());
             $comment->setUser($this->em->getRepository(User::class)->findOneBy(['name' => 'Deux']));
             $comment->setTrick($trick);
 
