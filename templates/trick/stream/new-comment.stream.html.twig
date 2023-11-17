@@ -1,0 +1,20 @@
+<turbo-stream action="append" target="trick-comments-show">
+    <template>
+        <div class="comment">
+            <p><small><i>De "{{ comment.user.name }}" le {{ comment.createdAt|date('d/m/Y') }}</small></i></p>
+            <p>{{ comment.content }}</p>
+        </div>
+    </template>
+</turbo-stream>
+
+<turbo-stream action="update" target="comments-count">
+    <template>
+        {% if commentsCount > 1 %}
+            {{ commentsCount }} commentaires
+        {% elseif commentsCount == 1 %}
+            1 commentaire
+        {% else %}
+            Pas encore de commentaire
+        {% endif %}
+    </template>
+</turbo-stream>

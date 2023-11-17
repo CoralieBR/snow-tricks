@@ -259,3 +259,47 @@ form {
         }
     }
 }
+
+#trick-comments {
+    background-color: $light-color;
+    padding: 1rem;
+    margin: 2rem;
+    border-radius: 4px;
+    .comment {
+        border: $colored-color 2px solid;
+        border-radius: 4px;
+        margin: 1rem auto;
+        max-width: 275px;
+        padding: 1rem;
+        > div:first-child {
+            text-align: right;
+            font-size: small;
+            border-bottom: $colored-color 1px solid;
+            margin-bottom: 8px;
+        }
+        div:last-child {
+            display: flex;
+            > div:first-child {
+                border-right: $colored-color 1px solid;
+                min-width: 50px;
+                padding-right: 8px;
+                margin-right: 8px;
+                align-items: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                font-size: small;
+            }
+        }
+    }
+    form {
+        > div {
+            flex-direction: column;
+            align-items: center;
+        }
+        button {
+            color: $dark-color;
+            border-color: $dark-color;
+        }
+    } 
+}

@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Trick;
 use App\Entity\User;
+use App\Form\CommentType;
 use App\Form\TrickType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,13 +17,13 @@ use Symfony\UX\Turbo\TurboBundle;
 
 class TrickController extends AbstractController
 {
-    public function __construct(private SluggerInterface $slugger)
-    {
-        
-    }
+    public function __construct(
+        private SluggerInterface $slugger,
+        private EntityManagerInterface $em
+    ) {}
 
     #[Route('/trick/ajouter', name: 'app_trick_new')]
-    public function new(Request $request, EntityManagerInterface $em)
+    public function new(Request $request)
     {
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick, [
@@ -31,7 +33,7 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $trick->setSlug($this->slugger->slug($trick->getName()));
-            $trick->setUser($em->getRepository(User::class)->findOneBy(['name' => 'Deux']));
+            $trick->setUser($this->em->getRepository(User::class)->findOneBy(['name' => 'Deux']));
 
             foreach ($trick->getMedia() as $key => $medium) {
                 $file = $form['media'][$key]['file']->getData();
@@ -40,8 +42,8 @@ class TrickController extends AbstractController
                 }
             }
 
-            $em->persist($trick);
-            $em->flush();
+            $this->em->persist($trick);
+            $this->em->flush();
 
             return $this->redirectToRoute('app_trick', ['slug' => $trick->getSlug()]);
         }
@@ -65,8 +67,8 @@ class TrickController extends AbstractController
     {
         $id = $trick->getId();
         $name = $trick->getName();
-        $em->remove($trick);
-        $em->flush();
+        $this->em->remove($trick);
+        $this->em->flush();
 
         $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
         return $this->render('trick/stream/deleted.stream.html.twig', [
@@ -78,9 +80,33 @@ class TrickController extends AbstractController
     #[Route('/trick/{slug}', name: 'app_trick')]
     public function index(Request $request, Trick $trick): Response
     {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment, [
+            'action' => $this->generateUrl('app_trick', ['slug' => $trick->getSlug()])
+        ]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setUser($this->em->getRepository(User::class)->findOneBy(['name' => 'Deux']));
+            $comment->setTrick($trick);
+
+            $this->em->persist($comment);
+            $this->em->flush();
+
+            $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+            return $this->render('trick/stream/new-comment.stream.html.twig', [
+                'comment' => $comment,
+                'commentsCount' => count($this->em->getRepository(Comment::class)->findBy(['trick' => $trick->getId()])),
+            ]);
+        }
+
+        $comments = $this->em->getRepository(Comment::class)->findBy(['trick' => $trick->getId()]);
+
         $params = [
             'trick' => $trick,
             'action' => 'show',
+            'comments' => $comments,
+            'form' => $form,
         ];
         if ($request->query->get('after-edition')) {
             $params['turbo-action'] = 'update';
@@ -108,7 +134,7 @@ class TrickController extends AbstractController
                 }
             }
 
-            $em->flush();
+            $this->em->flush();
 
             return $this->redirectToRoute('app_trick', [
                 'slug' => $trick->getSlug(),
