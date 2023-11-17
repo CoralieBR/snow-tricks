@@ -1,3 +1,34 @@
 <div id="trick-form">
-    {{ form(form) }}
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.groups) }}
+
+    <div {{ stimulus_controller('form-collection') }}
+        data-form-collection-index-value="{{ form.media|length > 0 ? form.media|last.vars.name + 1 : 0 }}"
+        data-form-collection-prototype-value="{{ form_widget(form.media.vars.prototype)|e('html_attr') }}"
+        class="container-form-trick-pictures"
+    >
+        <div class="form-trick-pictures" {{ stimulus_target('form-collection', 'collectionContainer') }}>
+            {% for medium in form.media %}
+                <div class="form-trick-picture" {{ stimulus_controller('picture')|stimulus_target('picture', 'picture') }}>
+                    {% if trick.media[loop.index0].type == 'picture' %}
+                        <img src="{{ asset('uploads/media/' ~ medium.path) }}" alt="photo de montagne enneigée">
+                    {% elseif trick.media[loop.index0].type == 'video' %}
+                        <iframe width="560" height="315" src="{{ trick.media[loop.index0].path }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    {% endif %}
+                    <div>
+                        <div style="display: none">
+                            {{ form_row(medium.type) }}
+                            {{ form_row(medium.path) }}
+                            {{ form_row(medium.file) }}
+                        </div>
+                        <div class="button" {{ stimulus_action('picture', 'deletePicture', 'click') }}>Supprimer l'image</div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <button type="button" {{ stimulus_action('form-collection', 'addCollectionElement') }}>Ajouter un media</button>
+    </div>
+    {{ form_end(form) }}
 </div>

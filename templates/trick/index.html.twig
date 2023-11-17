@@ -4,47 +4,15 @@
 
 {% block body %}
 <main class="trick-page">
+    {# header / background when page is not turbo loaded #}
     <div id="trickpage-picture-container" >
         <img src="{{ placeholderPicture }}" alt="photo de montagne enneigée">
     </div>
 
-    <turbo-frame id="trick-{{ trick.id }}" class="current-frame">
-        <div id="modal-{{ trick.id }}" class="trick-modal">
-            <div id="trick-container">
-                {% if isModal %}
-                    <a style="color: white"href="{{ path('app_homepage') }}">FERMER ⊗</a>
-                {% endif %}
-                {% if edit|default(false) == false %}
-                    <div>
-                        <img src="{{ placeholderPicture }}" alt="photo de montagne enneigée">
-                    </div>
-                {% endif %}
-                <div class="other-trick-pictures">
-                    {% for  i in 0..6 %}
-                        <div>
-                            <img src="{{ placeholderPicture }}" alt="photo de montagne enneigée">
-                            {% if edit|default(false) %}
-                                <div>
-                                    <button>✏️</button>
-                                    <button>🗑️</button>
-                                </div>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                </div>
-                {% if edit|default(false) %}
-                    {% include "trick/_form.html.twig" %}
-                {% else %}
-                    <div id="trick-infos">
-                        <h1>{{ trick.name }}</h1>
-                        {% for group in trick.groups %}
-                        <p><i>{{ group.name }}</i></p>
-                        {% endfor %}
-                        <p>{{ trick.description }}</p>
-                    </div>
-                {% endif %}
-            </div>
+    <div id="modal-{{ trick.id }}" class="trick-modal">
+        <div id="trick-container">
+            {% block trickBody %}{% endblock %}
         </div>
-    </turbo-frame>
+    </div>
 </main>
 {% endblock %}
