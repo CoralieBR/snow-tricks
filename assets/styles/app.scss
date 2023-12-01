@@ -47,6 +47,7 @@ header {
     align-items: center;
     background-color: $light-color;
     border: $colored-color solid 3px;
+    height: 90px;
     div {
         margin: 1rem;
         p {
@@ -58,6 +59,10 @@ header {
             align-items: end;
             display: flex;
         }
+    }
+    #logo {
+        font-size: 80px;
+        text-decoration: none;
     }
 }
 
@@ -302,4 +307,33 @@ form {
             border-color: $dark-color;
         }
     } 
+}
+
+#registration-page, #login-page {
+    max-width: 500px;
+    padding: 1rem;
+    margin: auto;
+    min-height: calc(100vh - 140px);
+    h1 {
+        color: $light-color;
+    }
+}
+#login-page {
+    #logged-message {
+        display: block;
+        a {
+            color: $light-color;
+        }
+    }
+    .row {
+        display: flex;
+        margin: 1rem;
+        label {
+            padding: 8px;
+            flex: 1 0 20%;
+        }
+        input {
+            flex: 1 0 80%;
+        }
+    }
 }

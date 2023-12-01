@@ -20,14 +20,16 @@
                     <h2>
                         <a href="{{ path('app_trick', { slug: trick.slug }) }}">{{ trick.name|capitalize }}</a>
                     </h2>
-                    <div>
-                        <div class="button">
-                            <a href="{{ path('app_trick_edit', { slug: trick.slug }) }}">✏️</a>
+                    {% if app.user %}
+                        <div>
+                            <div class="button">
+                                <a href="{{ path('app_trick_edit', { slug: trick.slug }) }}">✏️</a>
+                            </div>
+                            <div class="button">
+                                <a href="{{ path('app_trick_delete', { slug: trick.slug }) }}">🗑️</a>
+                            </div>
                         </div>
-                        <div class="button">
-                            <a href="{{ path('app_trick_delete', { slug: trick.slug }) }}">🗑️</a>
-                        </div>
-                    </div>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}
