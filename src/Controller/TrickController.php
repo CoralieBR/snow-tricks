@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\{Comment, Trick, CommentType};
-use App\Form\TrickType;
+use App\Entity\{Comment, Trick};
+use App\Form\{CommentType, TrickType};
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
