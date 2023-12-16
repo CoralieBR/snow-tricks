@@ -1,0 +1,11 @@
+<h1>Confirmation d'email</h1>
+
+<p>
+    Pour finaliser votre inscription sur le super site Snow Tricks, veuillez cliquer sur ce lien : <br><br>
+    <a href="{{ signedUrl|raw }}">Confirmer l'addresse mail</a>.
+    Ce lien expirera bientôt : {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+</p>
+
+<p>
+    A bientôt!
+</p>

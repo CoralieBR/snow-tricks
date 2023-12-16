@@ -54,6 +54,10 @@
                 </div>
             {% endfor %}
         </div>
-        <h5>Ajouter un commentaire</h5>
-        {{ form(form) }}
+        {% if app.user %}
+            <h5>Ajouter un commentaire</h5>
+            {{ form(form) }}
+        {% else %}
+            <p>Pour ajouter un commentaire, veuillez vous connecter.</p>
+        {% endif %}
     </div>

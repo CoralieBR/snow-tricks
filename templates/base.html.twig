@@ -17,13 +17,17 @@
     <body>
         <header>
             <div>
-                <a href="{{ path('app_homepage') }}">🏂</a>
+                <a href="{{ path('app_homepage') }}" id="logo">🏂</a>
             </div>
             <div>
-                <a href="{{ path('app_homepage') }}" class="button">Home</a>
+                <a href="{{ path('app_homepage') }}" class="button">Accueil</a>
                 <a href="{{ path('app_homepage') }}" class="button">Tricks</a>
-                <a href="{{ path('other_page') }}" class="button">Sign in</a>
-                <a href="{{ path('other_page') }}" class="button">Sign up</a>
+                {% if app.user %}
+                    <a href="{{ path('app_logout') }}" class="button">Déconnexion</a>
+                {% else %}
+                    <a href="{{ path('app_login') }}" class="button">Connexion</a>
+                    <a href="{{ path('app_register') }}" class="button">Inscription</a>
+                {% endif %}
             </div>
         </header>
         {% block body %}{% endblock %}

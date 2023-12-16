@@ -2,15 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Comment;
-use App\Entity\Trick;
-use App\Entity\User;
-use App\Form\CommentType;
-use App\Form\TrickType;
+use App\Entity\{Comment, Trick};
+use App\Form\{CommentType, TrickType};
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\{Request, Response};
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\UX\Turbo\TurboBundle;
@@ -19,7 +16,8 @@ class TrickController extends AbstractController
 {
     public function __construct(
         private SluggerInterface $slugger,
-        private EntityManagerInterface $em
+        private EntityManagerInterface $em,
+        private Security $security,
     ) {}
 
     #[Route('/trick/ajouter', name: 'app_trick_new')]
@@ -33,7 +31,7 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $trick->setSlug($this->slugger->slug($trick->getName()));
-            $trick->setUser($this->em->getRepository(User::class)->findOneBy(['name' => 'Deux']));
+            $trick->setUser($this->security->getUser());
 
             foreach ($trick->getMedia() as $key => $medium) {
                 $file = $form['media'][$key]['file']->getData();
@@ -87,7 +85,7 @@ class TrickController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setUser($this->em->getRepository(User::class)->findOneBy(['name' => 'Deux']));
+            $comment->setUser($this->security->getUser());
             $comment->setTrick($trick);
 
             $this->em->persist($comment);
@@ -122,7 +120,7 @@ class TrickController extends AbstractController
         $form = $this->createForm(TrickType::class, $trick, [
             'action' => $this->generateUrl('app_trick_edit', ['slug' => $trick->getSlug()])
         ]);
-        
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $trick->setUpdatedAt(new \DateTimeImmutable());
