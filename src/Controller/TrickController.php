@@ -53,15 +53,8 @@ class TrickController extends AbstractController
         ]);
     }
 
-    #[Route('/trick/fermer', name:'app_trick_modal_close')]
-    public function close(Request $request)
-    {
-        $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
-        return $this->render('trick/stream/close-modal.stream.html.twig');
-    }
-
     #[Route('/trick/supprimer/{slug}', name: 'app_trick_delete')]
-    public function delete(Trick $trick, Request $request, EntityManagerInterface $em)
+    public function delete(Trick $trick, Request $request)
     {
         $id = $trick->getId();
         $name = $trick->getName();
@@ -100,22 +93,16 @@ class TrickController extends AbstractController
 
         $comments = $this->em->getRepository(Comment::class)->findBy(['trick' => $trick->getId()]);
 
-        $params = [
+        return $this->render('trick/show.html.twig', [
             'trick' => $trick,
             'action' => 'show',
             'comments' => $comments,
             'form' => $form,
-        ];
-        if ($request->query->get('after-edition')) {
-            $params['turbo-action'] = 'update';
-            $params['turbo-target'] = 'trick-modal';
-        }
-        $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
-        return $this->render('trick/stream/_modal.stream.html.twig', $params);
+        ]);
     }
 
     #[Route('/trick/{slug}/edit', name: 'app_trick_edit')]
-    public function edit(Request $request, EntityManagerInterface $em, Trick $trick): Response
+    public function edit(Request $request, Trick $trick): Response
     {
         $form = $this->createForm(TrickType::class, $trick, [
             'action' => $this->generateUrl('app_trick_edit', ['slug' => $trick->getSlug()])
@@ -140,11 +127,9 @@ class TrickController extends AbstractController
             ], 303);
         }
 
-        $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
-        return $this->render('trick/stream/_modal.stream.html.twig', [
+        return $this->render('trick/edit.html.twig', [
             'trick' => $trick,
             'form' => $form,
-            'action' => 'edit',
         ]);
     }
 

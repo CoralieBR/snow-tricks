@@ -1,0 +1,38 @@
+$light-color: snow;
+$dark-color: rgb(11, 84, 94);
+$colored-color: rgb(0, 255, 242);
+
+// FONTS
+@font-face {
+    font-family: chocolate-font;
+    src: url('/public/fonts/chocolate/regular.otf');
+}
+@font-face {
+    font-family: chocolate-font;
+    src: url('/public/fonts/chocolate/italic.otf');
+    font-style: italic;
+}
+@font-face {
+    font-family: chocolate-font;
+    src: url('/public/fonts/chocolate/bold.otf');
+    font-weight: bold;
+}
+@font-face {
+    font-family: chocolate-font;
+    src: url('/public/fonts/chocolate/bold--italic.otf');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: levitation;
+    src: url('/public/fonts/levitation/levitation.otf');
+}
+
+* {
+    box-sizing: border-box;
+    font-family: chocolate-font;
+    h1, h2, h2 > a, h3, h4, h5, h6 {
+        font-family: levitation;
+    }
+}

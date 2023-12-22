@@ -15,7 +15,7 @@
                         {% if trick.media[loop.index0].type == 'picture' %}
                             <img src="{{ asset('uploads/media/' ~ trick.media[loop.index0].path) }}" alt="photo de montagne enneigée">
                         {% elseif trick.media[loop.index0].type == 'video' %}
-                            <iframe width="560" height="315" src="{{ trick.media[loop.index0].path }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            <iframe width="560" height="315" max-width="100vw" src="{{ trick.media[loop.index0].path }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         {% endif %}
                         <div>
                             <div style="display: none">
