@@ -53,6 +53,13 @@ class TrickController extends AbstractController
         ]);
     }
 
+    #[Route('/trick/fermer', name:'app_trick_modal_close')]
+    public function close(Request $request)
+    {
+        $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+        return $this->render('trick/stream/close-modal.stream.html.twig');
+    }
+
     #[Route('/trick/supprimer/{slug}', name: 'app_trick_delete')]
     public function delete(Trick $trick, Request $request)
     {
@@ -65,6 +72,15 @@ class TrickController extends AbstractController
         return $this->render('trick/stream/deleted.stream.html.twig', [
             'id' => $id,
             'name' => $name,
+        ]);
+
+    }
+    #[Route('/trick/{slug}/show-media', name: 'show_media')]
+    public function showMedia(Trick $trick, Request $request)
+    {
+        $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+        return $this->render('trick/stream/media.stream.html.twig', [
+            'media' => $trick->getMedia()
         ]);
     }
 

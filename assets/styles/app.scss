@@ -20,11 +20,15 @@ footer {
     }
     &#mobile {
         display: flex;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
     }
 }
 
 img {
     width: 100%;
+    border-radius: 6px;
 }
 button, .button {
     cursor: pointer;
@@ -34,11 +38,13 @@ button, .button {
     background-color: transparent;
     box-shadow: $dark-color 1px 1px 2px;
     display: inline;
+    border-radius: 6px;
+    &, a {
+        color: $dark-color;
+        text-decoration: none;
+    }
     &:hover {
         box-shadow: $dark-color 2px 2px 2px;
-    }
-    a {
-        text-decoration: none;
     }
 }
 
@@ -46,16 +52,23 @@ button, .button {
     position: relative;
     text-align: center;
     color: $light-color;
+    height: calc(100vh - 50px);
     img {
-        max-height: 100vh;
+        height: 100%;
         object-fit: cover;
     }
-    h1 {
+    h1, a {
         position: absolute;
+    }
+    h1 {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         text-shadow: $dark-color 0px 0px 5px;
+    }
+    a {
+        bottom: 20px;
+        right: 20px;
     }
 }
 
@@ -73,7 +86,15 @@ main.trick-page {
     overflow-y: auto;
     border: $colored-color solid 3px;
     background-color: $dark-color;
-    .other-trick-pictures {
+    #see-more {
+        color: $light-color;
+        border-color: $light-color;
+        margin: 5px auto;
+        display: block;
+        max-width: 80vw;
+        text-align: center;
+    }
+    #other-trick-pictures {
         display: flex;
         overflow-x: auto;
         &>div {
@@ -84,6 +105,9 @@ main.trick-page {
             button {
                 background-color: $dark-color;
             }
+        }
+        .medium-container {
+            display: flex;
         }
     }
     #trick-infos {
@@ -104,6 +128,7 @@ main.trick-page {
     margin: 1rem 3rem;
     text-align: center;
     box-shadow: $light-color 0px 0px 16px;
+    display: block;
     &:hover {
         box-shadow: $light-color 0px 0px 18px;
     }
@@ -122,6 +147,7 @@ main.trick-page {
         flex: 1 0 250px;
         max-width: 500px;
         box-shadow: $light-color 0px 0px 16px;
+        border-radius: 6px;
         &>div {
             display: flex;
             justify-content: space-between;
@@ -152,17 +178,9 @@ form {
     > div:not(.container-form-trick-pictures) {
         margin-bottom: 1rem;
         display: flex;
+        flex-direction: column;
         > label {
-            width: 20%;
             display: block;
-        }
-        > input, textarea {
-            width: 80%;
-        }
-        #trick_groups {
-            label {
-                width: 20%;
-            }
         }
     }
     .form-trick-pictures {
@@ -279,6 +297,10 @@ form {
 }
 
 @media screen and (min-width: 900px) {
+    img {
+        max-height: 500px;
+        object-fit: contain;
+    }
     header {
         display: flex;
         justify-content: space-between;
@@ -332,6 +354,21 @@ form {
             left: 50%;
             transform: translate(-50%, -50%);
             max-height: 90vh;
+        }
+    }
+
+    form > div:not(.container-form-trick-pictures) {
+        flex-direction: row;
+        > label {
+            width: 20%;
+        }
+        > input, textarea {
+            width: 80%;
+        }
+        #trick_groups {
+            label {
+                width: 20%;
+            }
         }
     }
 }
