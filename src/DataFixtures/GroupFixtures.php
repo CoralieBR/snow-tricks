@@ -26,13 +26,7 @@ class GroupFixtures extends Fixture
 
         $group3 = new Group();
         $group3->setName('flips')
-            ->setDescription("Un flip est une rotation verticale. On distingue les front flips, rotations en avant, et les back flips, rotations en arrière.
-
-            Il est possible de faire plusieurs flips à la suite, et d'ajouter un grab à la rotation.
-            
-            Les flips agrémentés d'une vrille existent aussi (Mac Twist, Hakon Flip...), mais de manière beaucoup plus rare, et se confondent souvent avec certaines rotations horizontales désaxées.
-            
-            Néanmoins, en dépit de la difficulté technique relative d'une telle figure, le danger de retomber sur la tête ou la nuque est réel et conduit certaines stations de ski à interdire de telles figures dans ses snowparks.");
+            ->setDescription("Un flip est une rotation verticale. On distingue les front flips, rotations en avant, et les back flips, rotations en arrière. Il est possible de faire plusieurs flips à la suite, et d'ajouter un grab à la rotation. Les flips agrémentés d'une vrille existent aussi (Mac Twist, Hakon Flip...), mais de manière beaucoup plus rare, et se confondent souvent avec certaines rotations horizontales désaxées. Néanmoins, en dépit de la difficulté technique relative d'une telle figure, le danger de retomber sur la tête ou la nuque est réel et conduit certaines stations de ski à interdire de telles figures dans ses snowparks.");
         $manager->persist($group3);
 
         $manager->flush();

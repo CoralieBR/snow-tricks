@@ -15,20 +15,20 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $user1 = new User();
-        $user1->setName('Un')
-            ->setEmail('un@mail.com')
+        $user1->setName('Léo')
+            ->setEmail('leo@mail.com')
             ->setPassword('pass');
         $manager->persist($user1);
 
         $user2 = new User();
-        $user2->setName('Deux')
-            ->setEmail('deux@mail.com')
+        $user2->setName('Zoé')
+            ->setEmail('zoe@mail.com')
             ->setPassword('pass');
         $manager->persist($user2);
 
         $user3 = new User();
-        $user3->setName('Trois')
-            ->setEmail('trois@mail.com')
+        $user3->setName('Léa')
+            ->setEmail('lea@mail.com')
             ->setPassword('pass');
         $manager->persist($user3);
 
