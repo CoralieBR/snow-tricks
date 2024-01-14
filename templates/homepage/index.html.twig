@@ -4,11 +4,15 @@
     <div id="homepage-picture-container" >
         <img src="{{ placeholderPicture }}" alt="photo de montagne enneigée">
         <h1>Vive la neige!</h1>
+        <a href="#cards-container" class="button">↓</a>
     </div>
-    <div id="add-trick-button">
-        <a href="{{ path('app_trick_new')}}">Ajouter une figure</a>
-    </div>
+
     <div class="cards-container" id="cards-container">
+        {% if app.user %}
+            <div id="add-trick-button" class="button">
+                <a href="{{ path('app_trick_new')}}">Ajouter une figure</a>
+            </div>
+        {% endif %}
         {% for trick in tricks %}
             <div id="trick-{{ trick.id }}" class="trick-card">
                 {% for medium in trick.media|filter(medium => medium.type == 'picture')|slice(0,1) %}
@@ -22,12 +26,8 @@
                     </h2>
                     {% if app.user %}
                         <div>
-                            <div class="button">
-                                <a href="{{ path('app_trick_edit', { slug: trick.slug }) }}">✏️</a>
-                            </div>
-                            <div class="button">
-                                <a href="{{ path('app_trick_delete', { slug: trick.slug }) }}">🗑️</a>
-                            </div>
+                            <a class="button" href="{{ path('app_trick_edit', { slug: trick.slug }) }}">✏️</a>
+                            <a class="button" onclick="return confirm('Êtes-vous certain.e de vouloir supprimer cette figure?');" href="{{ path('app_trick_delete', { slug: trick.slug }) }}">🗑️</a>
                         </div>
                     {% endif %}
                 </div>

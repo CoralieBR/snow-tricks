@@ -55,6 +55,11 @@ class RegistrationController extends AbstractController
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
 
+            $this->addFlash(
+                'notice',
+                'Votre compte est bien créé!'
+            );
+
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,

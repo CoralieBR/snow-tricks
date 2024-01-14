@@ -1,9 +1,6 @@
 <turbo-stream action="append" target="trick-comments-show">
     <template>
-        <div class="comment">
-            <p><small><i>De "{{ comment.user.name }}" le {{ comment.createdAt|date('d/m/Y') }}</small></i></p>
-            <p>{{ comment.content }}</p>
-        </div>
+        {% include "trick/_comment.html.twig" %}
     </template>
 </turbo-stream>
 

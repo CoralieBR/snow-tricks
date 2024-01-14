@@ -1,0 +1,197 @@
+@use 'utils';
+
+// BUTTON
+button, .button {
+    cursor: pointer;
+    margin: 6px;
+    padding: 6px;
+    border: utils.$dark-color solid 3px;
+    background-color: transparent;
+    box-shadow: utils.$dark-color 1px 1px 2px;
+    display: inline;
+    border-radius: 6px;
+    &, a {
+        color: utils.$dark-color;
+        text-decoration: none;
+    }
+    &:hover {
+        box-shadow: utils.$dark-color 2px 2px 2px;
+    }
+    &.light-button, &#trick_Enregistrer {
+        color: utils.$light-color;
+        border-color: utils.$light-color;
+    }
+    &#add-trick-button {
+        background-color: utils.$light-color;
+        padding: 1rem 3rem;
+        margin: 1rem 3rem;
+        text-align: center;
+        box-shadow: utils.$light-color 0px 0px 16px;
+        display: block;
+        &:hover {
+            box-shadow: utils.$light-color 0px 0px 18px;
+        }
+    }
+}
+
+// CARD
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 1rem;
+    .trick-card {
+        display: flex;
+        flex-direction: column;
+        background-color: utils.$light-color;
+        margin: 1rem;
+        flex: 1 0 250px;
+        max-width: 500px;
+        box-shadow: utils.$light-color 0px 0px 16px;
+        border-radius: 6px;
+        &>div {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            align-items: center;
+        }
+        img {
+            height: 150px;
+            object-fit: cover;
+        }
+        h2 {
+            font-size: large;
+        }
+    }
+    #trick-modal {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: calc(100vh - 50px);
+        text-align: center;
+        z-index: 1000;
+        background-color: utils.$dark-color;
+        #trick_groups {
+            color: utils.$light-color;
+        }
+    }
+}
+
+// FORM
+form {
+    margin: 1rem;
+    color: utils.$light-color;
+    > div:not(.container-form-trick-pictures) {
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        > label {
+            display: block;
+        }
+    }
+    .form-trick-pictures {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        .form-trick-picture {
+            flex: 0 1 250px;
+            margin: 1rem;
+            padding: 1rem;
+            background-color: utils.$light-color;
+            > div > div:not([hidden=""]) {
+                display: flex;
+                margin: 1rem;
+                label {
+                    padding: 8px;
+                    flex: 1 0 20%;
+                }
+                select, input {
+                    flex: 1 0 80%;
+                }
+                
+            }
+            img {
+                height: auto;
+                max-width: calc(100vw - 6rem - 6px);
+            }
+        }
+    }
+}
+
+// IMAGE
+img {
+    border-radius: 6px;
+}
+#homepage-picture-container {
+    position: relative;
+    text-align: center;
+    color: utils.$light-color;
+    height: calc(100vh - 50px);
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+    h1, a {
+        position: absolute;
+    }
+    h1 {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-shadow: utils.$dark-color 0px 0px 5px;
+    }
+    a {
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+@media screen and (min-width: 550px) {
+    // FORM
+    form > div:not(.container-form-trick-pictures) {
+        flex-direction: row;
+        > label {
+            width: 20%;
+        }
+        > input, textarea {
+            width: 80%;
+        }
+        #trick_groups {
+            label {
+                width: 20%;
+            }
+        }
+    }
+    
+    // IMAGES
+    img {
+        max-height: 500px;
+        object-fit: contain;
+    }
+    #homepage-picture-container {
+        height: calc(100vh - 90px);
+        img {
+            max-height: 100%;
+            width: 100%;
+        }
+}
+
+    // MODAL
+    .cards-container #trick-modal {
+        height: 100%;
+        background-color: #00000080;
+        #trick-container {
+            display: inline;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-height: 90vh;
+            position: absolute;
+            background-color: utils.$dark-color;
+            min-width: 450px;
+            border-radius: 4px;
+        }
+    }
+}

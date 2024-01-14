@@ -1,0 +1,43 @@
+{% extends 'trick/index.html.twig' %}
+
+{% block trickBody %}
+    <div id="trick-infos">
+        <h1>{{ trick.name }}</h1>
+        {% for group in trick.groups %}
+        <p><i>{{ group.name }}</i></p>
+        {% endfor %}
+        <p>{{ trick.description }}</p>
+        {% if app.user %}
+            <div>
+                <a class="button light-button" href="{{ path('app_trick_edit', { slug: trick.slug }) }}">✏️</a>
+                <a class="button light-button" onclick="return confirm('Êtes-vous certain.e de vouloir supprimer cette figure?');" href="{{ path('app_trick_delete', { slug: trick.slug }) }}">🗑️</a>
+            </div>
+        {% endif %}
+    </div>
+    <a href="{{ path('show_media', {slug: trick.slug}) }}" class="button" id="see-more">Voir les media</a>
+    <div id="other-trick-pictures">
+    </div>
+    <div id="trick-comments">
+        <div id="trick-comments-show">
+            <h4 id="comments-count">
+                {% if comments|length > 1 %}
+                    {{ comments|length }} commentaires
+                {% elseif comments|length == 1 %}
+                    1 commentaire
+                {% else %}
+                    Pas encore de commentaire
+                {% endif %}
+            </h4>
+            
+            {% if app.user %}
+                <h5>Ajouter un commentaire</h5>
+                {{ form(form) }}
+            {% else %}
+                <p>Pour ajouter un commentaire, veuillez vous connecter.</p>
+            {% endif %}
+            {% for comment in comments|reverse %}
+                {% include "trick/_comment.html.twig" %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

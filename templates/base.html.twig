@@ -30,9 +30,29 @@
                 {% endif %}
             </div>
         </header>
+        {% for message in app.flashes('notice') %}
+            <div class="flash-notice">
+                {{ message }}
+            </div>
+        {% endfor %}
         {% block body %}{% endblock %}
-        <footer>
+        <footer id="desktop">
             <small>Copyright @ 2023</small>
+        </footer>
+        <footer id="mobile">
+            <div>
+                <a href="{{ path('app_homepage') }}" class="button">🏠 Accueil</a>
+            </div>
+            <div>
+                <a href="{{ path('app_homepage') }}" class="button">🔙</a>
+            </div>
+            <div>
+                {% if app.user %}
+                    <a href="{{ path('app_logout') }}" class="button">🗣️ Déconnexion</a>
+                {% else %}
+                    <a href="{{ path('app_login') }}" class="button">🗣️ Connexion</a>
+                {% endif %}
+            </div>
         </footer>
     </body>
 </html>
