@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\MediumRepository;
+use App\Repository\MediaRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: MediumRepository::class)]
+#[ORM\Entity(repositoryClass: MediaRepository::class)]
 class Medium
 {
     #[ORM\Id]
@@ -14,6 +15,7 @@ class Medium
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $path = null;
 
     #[ORM\Column(length: 255)]

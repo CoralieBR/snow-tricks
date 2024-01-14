@@ -44,6 +44,7 @@ class Trick
     private Collection $groups;
 
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Medium::class, cascade: ['persist', 'remove'])]
+    #[Assert\Valid]
     private Collection $media;
 
     public function __construct()

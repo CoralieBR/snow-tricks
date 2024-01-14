@@ -30,6 +30,11 @@
                 {% endif %}
             </div>
         </header>
+        {% for message in app.flashes('notice') %}
+            <div class="flash-notice">
+                {{ message }}
+            </div>
+        {% endfor %}
         {% block body %}{% endblock %}
         <footer id="desktop">
             <small>Copyright @ 2023</small>

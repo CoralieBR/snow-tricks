@@ -1,23 +1,18 @@
 {% extends 'trick/index.html.twig' %}
 
 {% block trickBody %}
-    {# <div>
-        {% if trick.media|length %}
-            {% if trick.media[0].type == 'picture' %}
-                <img src="{{ asset('uploads/media/' ~ trick.media[0].path) }}" alt="photo de montagne enneigée">
-            {% elseif trick.media[0].type == 'video' %}
-                <iframe width="560" height="315" max-width="100vw" src="{{ trick.media[0].path }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            {% endif %}
-        {% else %}
-            <img src="{{ placeholderPicture }}" alt="photo de montagne enneigée">
-        {% endif %}
-    </div> #}
     <div id="trick-infos">
         <h1>{{ trick.name }}</h1>
         {% for group in trick.groups %}
         <p><i>{{ group.name }}</i></p>
         {% endfor %}
         <p>{{ trick.description }}</p>
+        {% if app.user %}
+            <div>
+                <a class="button light-button" href="{{ path('app_trick_edit', { slug: trick.slug }) }}">✏️</a>
+                <a class="button light-button" onclick="return confirm('Êtes-vous certain.e de vouloir supprimer cette figure?');" href="{{ path('app_trick_delete', { slug: trick.slug }) }}">🗑️</a>
+            </div>
+        {% endif %}
     </div>
     <a href="{{ path('show_media', {slug: trick.slug}) }}" class="button" id="see-more">Voir les media</a>
     <div id="other-trick-pictures">

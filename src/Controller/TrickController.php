@@ -43,6 +43,11 @@ class TrickController extends AbstractController
             $this->em->persist($trick);
             $this->em->flush();
 
+            $this->addFlash(
+                'notice',
+                'Vous avez bien créé la figure ' . $trick->getName() . '!'
+            );
+
             return $this->redirectToRoute('app_trick', ['slug' => $trick->getSlug()]);
         }
 
@@ -136,6 +141,11 @@ class TrickController extends AbstractController
             }
 
             $this->em->flush();
+
+            $this->addFlash(
+                'notice',
+                'Vous avez bien modfié la figure ' . $trick->getName() . '!'
+            );
 
             return $this->redirectToRoute('app_trick', [
                 'slug' => $trick->getSlug(),

@@ -10,25 +10,27 @@
         class="container-form-trick-pictures"
     >
         <div class="form-trick-pictures" {{ stimulus_target('form-collection', 'collectionContainer') }}>
-                {% for medium in form.media %}
-                    <div class="form-trick-picture" {{ stimulus_controller('picture')|stimulus_target('picture', 'picture') }}>
+            {% for medium in form.media %}
+                <div class="form-trick-picture" {{ stimulus_controller('picture')|stimulus_target('picture', 'picture') }}>
+                    {% if trick is defined %}
                         {% if trick.media[loop.index0].type == 'picture' %}
                             <img src="{{ asset('uploads/media/' ~ trick.media[loop.index0].path) }}" alt="photo de montagne enneigée">
                         {% elseif trick.media[loop.index0].type == 'video' %}
-                            <iframe width="560" height="315" max-width="100vw" src="{{ trick.media[loop.index0].path }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            <iframe max-width="100vw" src="{{ trick.media[loop.index0].path }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         {% endif %}
-                        <div>
-                            <div style="display: none">
-                                {{ form_row(medium.type) }}
-                                {{ form_row(medium.path) }}
-                                {{ form_row(medium.file) }}
-                            </div>
-                            <div class="button" {{ stimulus_action('picture', 'deletePicture', 'click') }}>Supprimer l'image</div>
+                    {% endif %}
+                    <div>
+                        <div{{ trick is defined ? ' style="display: none"' : '' }}>
+                            {{ form_row(medium.type) }}
+                            {{ form_row(medium.path) }}
+                            {{ form_row(medium.file) }}
                         </div>
+                        <div class="button" {{ stimulus_action('picture', 'deletePicture', 'click') }}>Supprimer l'image</div>
                     </div>
-                {% endfor %}
+                </div>
+            {% endfor %}
         </div>
-        <button type="button" {{ stimulus_action('form-collection', 'addCollectionElement') }}>Ajouter un media</button>
+        <button type="button" class="button light-button" {{ stimulus_action('form-collection', 'addCollectionElement') }}>Ajouter un media</button>
     </div>
     {{ form_end(form) }}
 </div>
