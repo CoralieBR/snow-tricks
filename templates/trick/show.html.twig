@@ -9,12 +9,12 @@
         <p>{{ trick.description }}</p>
         {% if app.user %}
             <div>
-                <a class="button light-button" href="{{ path('app_trick_edit', { slug: trick.slug }) }}">✏️</a>
-                <a class="button light-button" onclick="return confirm('Êtes-vous certain.e de vouloir supprimer cette figure?');" href="{{ path('app_trick_delete', { slug: trick.slug }) }}">🗑️</a>
+                <a class="button light-button" href="{{ path('app_trick_edit', { slug: trick.slug, id: trick.id }) }}">✏️</a>
+                <a class="button light-button" onclick="return confirm('Êtes-vous certain.e de vouloir supprimer cette figure?');" href="{{ path('app_trick_delete', { slug: trick.slug, id: trick.id }) }}">🗑️</a>
             </div>
         {% endif %}
     </div>
-    <a href="{{ path('show_media', {slug: trick.slug}) }}" class="button" id="see-more">Voir les media</a>
+    <a href="{{ path('show_media', {slug: trick.slug, id: trick.id}) }}" class="button" id="see-more">Voir les media</a>
     <div id="other-trick-pictures">
     </div>
     <div id="trick-comments">

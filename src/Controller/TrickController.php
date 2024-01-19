@@ -48,7 +48,10 @@ class TrickController extends AbstractController
                 'Vous avez bien créé la figure ' . $trick->getName() . '!'
             );
 
-            return $this->redirectToRoute('app_trick', ['slug' => $trick->getSlug()]);
+            return $this->redirectToRoute('app_trick', [
+                'slug' => $trick->getSlug(),
+                'id' => $trick->getId(),
+            ]);
         }
 
         $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
@@ -65,7 +68,7 @@ class TrickController extends AbstractController
         return $this->render('trick/stream/close-modal.stream.html.twig');
     }
 
-    #[Route('/trick/supprimer/{slug}', name: 'app_trick_delete')]
+    #[Route('/trick/supprimer/{slug}/{id}', name: 'app_trick_delete')]
     public function delete(Trick $trick, Request $request)
     {
         $id = $trick->getId();
@@ -80,7 +83,7 @@ class TrickController extends AbstractController
         ]);
 
     }
-    #[Route('/trick/{slug}/show-media', name: 'show_media')]
+    #[Route('/trick/{slug}/{id}/show-media', name: 'show_media')]
     public function showMedia(Trick $trick, Request $request)
     {
         $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
@@ -89,12 +92,15 @@ class TrickController extends AbstractController
         ]);
     }
 
-    #[Route('/trick/{slug}', name: 'app_trick')]
+    #[Route('/trick/{slug}/{id}', name: 'app_trick')]
     public function index(Request $request, Trick $trick): Response
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment, [
-            'action' => $this->generateUrl('app_trick', ['slug' => $trick->getSlug()])
+            'action' => $this->generateUrl('app_trick', [
+                'slug' => $trick->getSlug(),
+                'id' => $trick->getId()
+            ])
         ]);
 
         $form->handleRequest($request);
@@ -122,11 +128,14 @@ class TrickController extends AbstractController
         ]);
     }
 
-    #[Route('/trick/{slug}/edit', name: 'app_trick_edit')]
+    #[Route('/trick/{slug}/{id}/edit', name: 'app_trick_edit')]
     public function edit(Request $request, Trick $trick): Response
     {
         $form = $this->createForm(TrickType::class, $trick, [
-            'action' => $this->generateUrl('app_trick_edit', ['slug' => $trick->getSlug()])
+            'action' => $this->generateUrl('app_trick_edit', [
+                'slug' => $trick->getSlug(),
+                'id' => $trick->getId(),
+            ])
         ]);
 
         $form->handleRequest($request);
@@ -149,6 +158,7 @@ class TrickController extends AbstractController
 
             return $this->redirectToRoute('app_trick', [
                 'slug' => $trick->getSlug(),
+                'id' => $trick->getId(),
                 'after-edition' => true,
             ], 303);
         }

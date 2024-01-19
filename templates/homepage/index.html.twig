@@ -22,12 +22,12 @@
                 {% endfor %}
                 <div>
                     <h2>
-                        <a href="{{ path('app_trick', { slug: trick.slug }) }}">{{ trick.name|capitalize }}</a>
+                        <a href="{{ path('app_trick', { slug: trick.slug, id: trick.id }) }}">{{ trick.name|capitalize }}</a>
                     </h2>
                     {% if app.user %}
                         <div>
-                            <a class="button" href="{{ path('app_trick_edit', { slug: trick.slug }) }}">✏️</a>
-                            <a class="button" onclick="return confirm('Êtes-vous certain.e de vouloir supprimer cette figure?');" href="{{ path('app_trick_delete', { slug: trick.slug }) }}">🗑️</a>
+                            <a class="button" href="{{ path('app_trick_edit', { slug: trick.slug, id: trick.id }) }}">✏️</a>
+                            <a class="button" onclick="return confirm('Êtes-vous certain.e de vouloir supprimer cette figure?');" href="{{ path('app_trick_delete', { slug: trick.slug, id: trick.id }) }}">🗑️</a>
                         </div>
                     {% endif %}
                 </div>
