@@ -15,12 +15,13 @@ export default class extends Controller {
             // it's a picture!
             this.fileTarget.hidden = false;
             this.pathTarget.hidden = true;
-            this.pathTarget.querySelector('input').value = null;
+            this.pathTarget.querySelector('input').value = 'picture-path';
         } else if (event.target.value == 2) {
             // it's a video!
             this.pathTarget.hidden = false;
             this.fileTarget.hidden = true;
             this.fileTarget.querySelector('input').value = null;
+            this.pathTarget.querySelector('input').value = null;
         } else {
             this.secondInputTargets.forEach(target => {
                 target.hidden = true;
