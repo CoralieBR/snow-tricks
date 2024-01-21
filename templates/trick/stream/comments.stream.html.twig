@@ -1,0 +1,7 @@
+<turbo-stream action="update" target="trick-comments-show">
+    <template>
+        {% for comment in comments %}
+            {% include "trick/_comment.html.twig" %}
+        {% endfor %}
+    </template>
+</turbo-stream>

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\{Comment, Trick};
 use App\Form\{CommentType, TrickType};
+use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -14,10 +15,13 @@ use Symfony\UX\Turbo\TurboBundle;
 
 class TrickController extends AbstractController
 {
+    private const COMMENTS_PER_PAGE = 10;
+
     public function __construct(
         private SluggerInterface $slugger,
         private EntityManagerInterface $em,
         private Security $security,
+        private CommentRepository $commentRepository,
     ) {}
 
     #[Route('/trick/ajouter', name: 'app_trick_new')]
@@ -81,14 +85,24 @@ class TrickController extends AbstractController
             'id' => $id,
             'name' => $name,
         ]);
-
     }
+
     #[Route('/trick/{slug}/{id}/show-media', name: 'show_media')]
     public function showMedia(Trick $trick, Request $request)
     {
         $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
         return $this->render('trick/stream/media.stream.html.twig', [
             'media' => $trick->getMedia()
+        ]);
+    }
+
+    #[Route('/trick/{slug}/{id}/{page}/comments-page', name: 'comments_page')]
+    public function commentsPage($page, Trick $trick, Request $request)
+    {
+        $comments = $this->commentRepository->findPaginatedComments($trick->getId(), $page, self::COMMENTS_PER_PAGE);
+        $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+        return $this->render('trick/stream/comments.stream.html.twig', [
+            'comments' => $comments,
         ]);
     }
 
@@ -114,16 +128,15 @@ class TrickController extends AbstractController
             $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
             return $this->render('trick/stream/new-comment.stream.html.twig', [
                 'comment' => $comment,
-                'commentsCount' => count($this->em->getRepository(Comment::class)->findBy(['trick' => $trick->getId()])),
+                'commentsCount' => count($this->commentRepository->findBy(['trick' => $trick->getId()])),
             ]);
         }
-
-        $comments = $this->em->getRepository(Comment::class)->findBy(['trick' => $trick->getId()]);
 
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
             'action' => 'show',
-            'comments' => $comments,
+            'comments' => $this->commentRepository->findPaginatedComments($trick->getId(), 1, self::COMMENTS_PER_PAGE),
+            'commentsCount' => count($this->commentRepository->findBy(['trick' => $trick->getId()])),
             'form' => $form,
         ]);
     }
